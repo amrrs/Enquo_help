@@ -20,9 +20,12 @@ TS_module <- function(input, output, session, data, prod_specific_type, x, y, z,
   
     first_group <- x()
     second_group <- z()
+    #cat(first_group)
+    #cat(second_group)
     data %>%
     filter(Prod.Specific == as.character(prod_specific_type)) %>%
-      group_by(!!eval(parse(text=first_group)), !!eval(parse(text=second_group))) %>%
+      group_by_(first_group,second_group) %>%
+      #group_by(eval(parse(text=first_group)), eval(parse(text=second_group))) %>%
       summarize(Amount = sum(Amount), Qty = sum(Qty))
     
     
